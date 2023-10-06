@@ -1,0 +1,37 @@
+version: "3"
+services:
+  springBootApp:
+    image: bobby67/person:1.1
+    container_name: docker-postgres-springboot-midproject-demo-app
+    environment:
+      - POSTGRES_HOST=docker-postgres-springboot-midproject-demo-db
+      - SERVER_PORT=8092
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresDb:5432/Select
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=Virat2002=
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+    ports:
+      - "8081:8092"
+    networks:
+      - network
+    depends_on:
+      - postgresDB
+    restart: on-failure
+  postgresDB:
+    image: postgres:15.0
+    container_name: docker-postgres-springboot-midproject-demo-db
+    ports:
+      - "5432:5432"
+    networks:
+      - network
+    volumes:
+      - volume:/var/lib/postgres/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Virat2002=
+      - POSTGRES_DB=Select
+networks:
+  network:
+volumes:
+  volume:
